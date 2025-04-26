@@ -10,7 +10,7 @@ int ConversorRomano::converter(const string& romano) {
     int total = 0;
     int valorAnterior = 0;
     for (int i = romano.length() - 1; i >= 0; i--) {
-        char caractere = romano[i];
+        char caractere = toupper(romano[i]); //toupper para aceitar entradas minusculas
         int valorAtual = valores[caractere];
 
        if (valorAtual < valorAnterior) {
