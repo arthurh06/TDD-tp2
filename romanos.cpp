@@ -11,9 +11,13 @@ int ConversorRomano::converter(const string& romano) {
     int valorAnterior = 0;
     for (int i = romano.length() - 1; i >= 0; i--) {
         char caractere = toupper(romano[i]); //toupper para aceitar entradas minusculas
+
+        if (valores.count(caractere) == 0) {
+            return -1;
+        }
         int valorAtual = valores[caractere];
 
-       if (valorAtual < valorAnterior) {
+        if (valorAtual < valorAnterior) {
         total -= valorAtual;
         } else {
             total += valorAtual;
