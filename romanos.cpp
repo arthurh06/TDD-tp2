@@ -7,5 +7,5 @@ int ConversorRomano::converter(const string& romano) {
         {'L', 50}, {'C', 100}, {'D', 500}, {'M', 1000}
     };
 
-    return 1;
+    return valores[romano[0]];
 };

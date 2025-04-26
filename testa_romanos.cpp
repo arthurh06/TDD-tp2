@@ -5,4 +5,5 @@
 TEST_CASE("Números romanos válidos") {
     ConversorRomano conv;
     REQUIRE(conv.converter("I") == 1);
+    REQUIRE(conv.converter("V") == 5);
 }
