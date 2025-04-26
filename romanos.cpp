@@ -31,11 +31,19 @@ int ConversorRomano::converter(const string& romano) {
             repeticoes = 1; //reseta contagem
         }
 
-        if (valorAtual < valorAnterior) {  //verifica se é para somar ou subtrair o valor do algarismo
+        if (valorAtual < valorAnterior) {
+            if (!(
+                (caractere == 'I' && (ultimoCaractere == 'V' || ultimoCaractere == 'X')) ||
+                (caractere == 'X' && (ultimoCaractere == 'L' || ultimoCaractere == 'C')) ||
+                (caractere == 'C' && (ultimoCaractere == 'D' || ultimoCaractere == 'M'))
+            )) {
+                return -1;  //verfica se a subtração é valida
+            }
             total -= valorAtual;
         } else {
             total += valorAtual;
         }
+
 
         valorAnterior = valorAtual;
         ultimoCaractere = caractere;
