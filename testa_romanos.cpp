@@ -10,6 +10,8 @@ TEST_CASE("Números romanos válidos") {
     REQUIRE(conv.converter("IV") == 4);
     REQUIRE(conv.converter("x") == 10);
     REQUIRE(conv.converter("A") == -1);
+    REQUIRE(conv.converter("IIII") == -1);
+
 
 
 
