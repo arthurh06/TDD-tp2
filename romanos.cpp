@@ -49,5 +49,5 @@ int ConversorRomano::converter(const string& romano) {
         ultimoCaractere = caractere;
     }
 
-    return total;
+    return (total > 3000) ? -1 : total;
 };
