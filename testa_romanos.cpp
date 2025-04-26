@@ -12,6 +12,7 @@ TEST_CASE("Verificacao de números romanos") {
     REQUIRE(conv.converter("A") == -1);
     REQUIRE(conv.converter("IIII") == -1);
     REQUIRE(conv.converter("VX") == -1);
+    REQUIRE(conv.converter("MMMD") == -1);
 
 
 
