@@ -11,6 +11,7 @@ int ConversorRomano::converter(const string& romano) {
     int valorAnterior = 0;
     int repeticoes = 1;
     char ultimoCaractere = '\0';
+
     for (int i = romano.length() - 1; i >= 0; i--) {
         char caractere = toupper(romano[i]); //toupper para aceitar entradas minusculas
 
@@ -49,5 +50,5 @@ int ConversorRomano::converter(const string& romano) {
         ultimoCaractere = caractere;
     }
 
-    return (total > 3000) ? -1 : total;
+    return (total > 3000) ? -1 : total; //se total > 3000, return -1
 };
