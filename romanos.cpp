@@ -9,6 +9,8 @@ int ConversorRomano::converter(const string& romano) {
 
     int total = 0;
     int valorAnterior = 0;
+    int repeticoes = 1;
+    char ultimoCaractere = '\0';
     for (int i = romano.length() - 1; i >= 0; i--) {
         char caractere = toupper(romano[i]); //toupper para aceitar entradas minusculas
 
@@ -17,12 +19,27 @@ int ConversorRomano::converter(const string& romano) {
         }
         int valorAtual = valores[caractere];
 
-        if (valorAtual < valorAnterior) {
-        total -= valorAtual;
+        if (caractere == ultimoCaractere) {  //verifica se o algarismo pode ser repetido e se é maior que 3 reps
+            repeticoes++;
+            if ((caractere == 'I' || caractere == 'X' || caractere == 'C' || caractere == 'M') && repeticoes > 3) {
+                return -1;
+            }
+            if (caractere == 'V' || caractere == 'L' || caractere == 'D') {
+                return -1;
+            }
+        } else {
+            repeticoes = 1;
+        }
+
+        if (valorAtual < valorAnterior) {  //verifica se é para somar ou subtrair o valor do algarismo
+            total -= valorAtual;
         } else {
             total += valorAtual;
         }
-        valorAnterior = valorAtual; // atualizar valor anterior para verificação      
+
+        valorAnterior = valorAtual;
+        ultimoCaractere = caractere;
     }
+
     return total;
 };
