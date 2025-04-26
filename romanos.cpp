@@ -28,7 +28,7 @@ int ConversorRomano::converter(const string& romano) {
                 return -1;
             }
         } else {
-            repeticoes = 1;
+            repeticoes = 1; //reseta contagem
         }
 
         if (valorAtual < valorAnterior) {  //verifica se é para somar ou subtrair o valor do algarismo
