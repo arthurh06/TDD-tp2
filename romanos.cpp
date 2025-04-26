@@ -8,11 +8,17 @@ int ConversorRomano::converter(const string& romano) {
     };
 
     int total = 0;
+    int valorAnterior = 0;
     for (int i = romano.length() - 1; i >= 0; i--) {
         char caractere = romano[i];
         int valorAtual = valores[caractere];
 
-        total += valorAtual;
+       if (valorAtual < valorAnterior) {
+        total -= valorAtual;
+        } else {
+            total += valorAtual;
+        }
+        valorAnterior = valorAtual; // atualizar valor anterior para verificação      
     }
     return total;
 };
