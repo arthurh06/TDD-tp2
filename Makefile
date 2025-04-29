@@ -1,43 +1,34 @@
 # Compilador e flags
 CXX = g++
-CXXFLAGS = -std=c++11 -Wall -Wextra -g
+CXXFLAGS = -std=c++11 -Wall -Wextra
+GCOVFLAGS = -fprofile-arcs -ftest-coverage
+
+# Arquivos-fonte e objetos
+SRCS = romanos.cpp testa_romanos.cpp
+OBJS = $(SRCS:.cpp=.o)
+TARGET = testa_romanos
 
 # Alvo principal
-all: testa_romanos
+all: $(TARGET)
 
-# Compila os objetos
-romanos.o: romanos.cpp romanos.hpp
-	$(CXX) $(CXXFLAGS) -c romanos.cpp
+# Regra de compilação dos objetos
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) $(GCOVFLAGS) -c $< -o $@
 
-testa_romanos.o: testa_romanos.cpp romanos.hpp
-	$(CXX) $(CXXFLAGS) -c testa_romanos.cpp
+# Linkagem final
+$(TARGET): $(OBJS)
+	$(CXX) $(CXXFLAGS) $(GCOVFLAGS) $(OBJS) -o $@
 
-# Linka tudo e gera o executável
-testa_romanos: romanos.o testa_romanos.o
-	$(CXX) $(CXXFLAGS) romanos.o testa_romanos.o -o testa_romanos
+# Executar os testes
+run: $(TARGET)
+	./$(TARGET)
 
-# Executa os testes (se quiser automatizar)
-run: testa_romanos
-	./testa_romanos
+# Geração de cobertura
+coverage: run
+	gcov -r romanos.cpp
 
-# Gcov para cobertura
-gcov: clean
-	$(CXX) $(CXXFLAGS) -fprofile-arcs -ftest-coverage -c romanos.cpp
-	$(CXX) $(CXXFLAGS) -fprofile-arcs -ftest-coverage -c testa_romanos.cpp
-	$(CXX) $(CXXFLAGS) -fprofile-arcs -ftest-coverage romanos.o testa_romanos.o -o testa_romanos
-	./testa_romanos
-	gcov romanos.cpp testa_romanos.cpp
-
-# Valgrind (Linux)
-valgrind: testa_romanos
-	valgrind --leak-check=yes --log-file=valgrind.rpt ./testa_romanos
-
-# Debug com gdb
-debug: testa_romanos
-	gdb ./testa_romanos
-
-# Limpa arquivos temporários
+# Limpeza
 clean:
-	rm -f *.o *.exe *.out *.gcno *.gcda *.gcov testa_romanos
+	rm -f *.o *.gcno *.gcda *.gcov $(TARGET)
 
-.PHONY: all run gcov valgrind debug clean
+.PHONY: all run coverage clean
